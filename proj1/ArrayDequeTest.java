@@ -1,5 +1,7 @@
+import java.lang.reflect.Array;
+
 /** Performs some basic linked list tests. */
-public class LinkedListDequeTest {
+public class ArrayDequeTest {
 	/* Utility method for printing out empty checks. */
 	public static boolean checkEmpty(boolean expected, boolean actual) {
 		if (expected != actual) {
@@ -36,7 +38,7 @@ public class LinkedListDequeTest {
 		System.out.println("Running add/isEmpty/Size test.");
 		//System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
-		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
+		ArrayDeque<String> lld1 = new ArrayDeque<String>();
 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
 
@@ -63,7 +65,7 @@ public class LinkedListDequeTest {
 
 		//System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
-		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+		ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 		// should be empty 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
 
@@ -78,9 +80,36 @@ public class LinkedListDequeTest {
 		printTestStatus(passed);
 	}
 
+	public static void resizeTest() {
+		System.out.println("Running resize test");
+
+		ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+		// should be empty
+		boolean passed = checkEmpty(true, lld1.isEmpty());
+
+		for (int i = 0 ; i < 15; i++) {
+			lld1.addFirst(i);
+		}
+		// should be 15 elements inside
+		passed = lld1.size() == 15 && passed;
+		System.out.println("Printing out deque: ");
+		lld1.printDeque();
+
+        for (int i = 0 ; i < 12; i++) {
+			lld1.removeFirst();
+		}
+
+		// should be 15 elements inside
+		passed = lld1.size() == 3 && passed;
+		System.out.println("Printing out deque: ");
+		lld1.printDeque();
+		printTestStatus(passed);
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		resizeTest();
 	}
 } 
